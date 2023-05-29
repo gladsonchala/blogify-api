@@ -24,9 +24,7 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = {
-  createPost,
-};
+
 
 // Get all blog posts
 const getAllPosts = async (req, res) => {
@@ -58,10 +56,6 @@ const getPostById = async (req, res) => {
   }
 };
 
-module.exports = {
-  getAllPosts,
-  getPostById,
-};
 
 // Update a blog post by ID
 const updatePost = async (req, res) => {
@@ -89,9 +83,6 @@ const updatePost = async (req, res) => {
   }
 };
 
-module.exports = {
-  updatePost,
-};
 
 
 // Delete a blog post by ID
@@ -116,5 +107,9 @@ const deletePost = async (req, res) => {
 };
 
 module.exports = {
+  createPost,
+  getAllPosts,
+  getPostById,
+  updatePost,
   deletePost,
 };
