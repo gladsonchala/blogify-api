@@ -93,3 +93,28 @@ module.exports = {
   updatePost,
 };
 
+
+// Delete a blog post by ID
+const deletePost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    // Find the post by ID
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    // Delete the post
+    await post.remove();
+
+    res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while deleting the post' });
+  }
+};
+
+module.exports = {
+  deletePost,
+};
