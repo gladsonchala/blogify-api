@@ -27,3 +27,39 @@ const createPost = async (req, res) => {
 module.exports = {
   createPost,
 };
+
+// Get all blog posts
+const getAllPosts = async (req, res) => {
+  try {
+    // Find all posts and populate the author field with user details
+    const posts = await Post.find().populate('author', 'name email');
+
+    res.status(200).json({ posts });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while retrieving the posts' });
+  }
+};
+
+// Get a specific blog post by ID
+const getPostById = async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    // Find the post by ID and populate the author field with user details
+    const post = await Post.findById(postId).populate('author', 'name email');
+
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.status(200).json({ post });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while retrieving the post' });
+  }
+};
+
+module.exports = {
+  getAllPosts,
+  getPostById,
+};
+
