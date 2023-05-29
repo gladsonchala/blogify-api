@@ -63,3 +63,33 @@ module.exports = {
   getPostById,
 };
 
+// Update a blog post by ID
+const updatePost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const { title, content } = req.body;
+
+    // Find the post by ID
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    // Update the post fields
+    post.title = title || post.title;
+    post.content = content || post.content;
+
+    // Save the updated post to the database
+    await post.save();
+
+    res.status(200).json({ message: 'Post updated successfully', post });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while updating the post' });
+  }
+};
+
+module.exports = {
+  updatePost,
+};
+
